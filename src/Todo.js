@@ -1,20 +1,25 @@
 import React from "react";
 
-export default function Todo({ title, description, dateCreated, dateCompleted, complete, dispatch, deleted }) {
-    function handleChecked(evt) {
-        dispatch({type: 'TOGGLE_TODO', title, description, dateCreated, dateCompleted: Date(Date.now()), complete: evt.target.checked})
-    }
+export default function Todo({ title, desc, dateCreated,dateCompleted,complete, index, dispatch,deleted}) {
+  function handleChecked(evt) {
+      dispatch({type:'TOGGLE_TODO', title, desc, dateCreated, dateCompleted: Date(Date.now()), complete: evt.target.checked, index});
+  }
+  function handleDelete(){
+    dispatch({type: 'DELETE_TODO', index})
+  }
 
-    return (
-        <div>
-            <h3>{title}</h3>
-            <div>{description}</div>
-            <div>{`Date Created: ` + dateCreated}</div>
-            <br />
-            <label htmlFor="complete-checkbox">Completed:</label>
-            <input type="checkbox" name="complete-checkbox" value={complete} onChange={handleChecked}/>
-            <div>Complete {complete}</div>
-            <div>Completed Date: {dateCompleted}</div>
-        </div>
-    )
+
+  return (
+      <div>
+          <h1>{title}</h1>
+          <p>{desc}</p>
+          <label htmlFor="complete-checkbox">Complete Task:</label>
+          <input type="checkbox" name="complete-checkbox" value={complete} onChange={handleChecked}/><br></br>
+          <div>Complete: {complete}</div>
+          <div>Date Created: {dateCreated}</div>
+          <div>Date Completed: {dateCompleted}</div>
+          <input type="button" value="delete" onClick={handleDelete}></input>
+          <div></div>
+      </div>
+  )
 }
